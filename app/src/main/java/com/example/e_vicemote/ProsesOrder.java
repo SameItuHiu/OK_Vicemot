@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class ProsesOrder extends AppCompatActivity {
 
     public static final String key = null;
@@ -26,14 +28,21 @@ public class ProsesOrder extends AppCompatActivity {
     String userID, nama_toko, layanan, keyID,id,nama_pelanggan;
     private DatabaseReference ref;
 
-    private int mYear, mMonth, mDay, mHour, mMinute,nYear,nMonth,nDay;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
-    TextView info_barang, keluhan, mToko, mLayanan, txtDate;
+    TextView info_barang, keluhan, mToko, mLayanan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proses_order);
+
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
         //init textview
         info_barang = findViewById(R.id.info_barang);
@@ -81,7 +90,7 @@ public class ProsesOrder extends AppCompatActivity {
         cek_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProsesOrder.this, RoomChat.class));
+                startActivity(new Intent(ProsesOrder.this, Chat.class));
                 finish();
                 dialog.dismiss();
             }
@@ -113,9 +122,6 @@ public class ProsesOrder extends AppCompatActivity {
                 ref.child("account").child(userID).child("order").child(id).child("order_dibuat").child("year").setValue(mYear);
                 ref.child("account").child(userID).child("order").child(id).child("order_dibuat").child("hour").setValue(mHour);
                 ref.child("account").child(userID).child("order").child(id).child("order_dibuat").child("minute").setValue(mMinute);
-                ref.child("account").child(userID).child("order").child(id).child("arrival").child("day").setValue(nDay);
-                ref.child("account").child(userID).child("order").child(id).child("arrival").child("month").setValue(nMonth);
-                ref.child("account").child(userID).child("order").child(id).child("arrival").child("year").setValue(nYear);
                 ref.child("account").child(userID).child("alert").setValue(true);
 
                 ref.child("toko").child(keyID).child("order").child(id).child("status_order").setValue("Order Masuk");
@@ -129,9 +135,6 @@ public class ProsesOrder extends AppCompatActivity {
                 ref.child("toko").child(keyID).child("order").child(id).child("year").setValue(mYear);
                 ref.child("toko").child(keyID).child("order").child(id).child("hour").setValue(mHour);
                 ref.child("toko").child(keyID).child("order").child(id).child("minute").setValue(mMinute);
-                ref.child("toko").child(keyID).child("order").child(id).child("arrival").child("tanggal").child("day").setValue(nDay);
-                ref.child("toko").child(keyID).child("order").child(id).child("arrival").child("tanggal").child("month").setValue(nMonth);
-                ref.child("toko").child(keyID).child("order").child(id).child("arrival").child("tanggal").child("year").setValue(nYear);
                 ref.child("toko").child(keyID).child("alert").setValue(true);
 
                 dialog.show();
@@ -144,5 +147,13 @@ public class ProsesOrder extends AppCompatActivity {
         Intent intent = new Intent(this, Map.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Map.class);
+        startActivity(intent);
+        finish();
+        super.onBackPressed();
     }
 }

@@ -15,15 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingBottom="15dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="30dp"
+
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:background="@color/colorPrimary"
+                android:padding="30dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="horizontal">
                 <ImageView
                     android:layout_width="70dp"
@@ -39,26 +38,23 @@
                         android:id="@+id/nama_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#000"
+                        android:textColor="@color/white"
                         android:textSize="16sp"/>
                     <TextView
                         android:id="@+id/id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="14sp"/>
                 </LinearLayout>
             </LinearLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                android:background="#9E9E9E"/>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:onClick="maps"
                 android:orientation="horizontal">
                 <ImageView
@@ -79,6 +75,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_navigate_next"
                     android:tint="#9E9E9E"/>
             </RelativeLayout>
@@ -86,11 +83,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:background="#9E9E9E"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:onClick="order"
                 android:orientation="horizontal">
                 <ImageView
@@ -121,6 +120,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_navigate_next"
                     android:tint="#9E9E9E"/>
             </RelativeLayout>
@@ -128,11 +128,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:background="#9E9E9E"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:onClick="chat"
                 android:orientation="horizontal">
                 <ImageView
@@ -153,18 +155,20 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_navigate_next"
                     android:tint="#9E9E9E"/>
             </RelativeLayout>
             <ImageView
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:background="#9E9E9E"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="25dp"
                 android:layout_marginBottom="14dp"
                 android:onClick="akun"
                 android:orientation="horizontal">
@@ -186,6 +190,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_navigate_next"
                     android:tint="#9E9E9E"/>
             </RelativeLayout>
@@ -193,11 +198,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:background="#9E9E9E"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:onClick="logout"
                 android:orientation="horizontal">
                 <ImageView
@@ -220,17 +227,20 @@
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_navigate_next"
+                    android:layout_centerVertical="true"
                     android:tint="#9E9E9E"/>
             </RelativeLayout>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:layout_marginBottom="14dp"
+                android:layout_marginHorizontal="25dp"
                 android:background="#9E9E9E"/>
             <LinearLayout
                 android:id="@+id/layout_mitra"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
                 android:visibility="gone"
                 android:orientation="vertical">
                 <TextView
@@ -241,7 +251,7 @@
                     android:text="khusus mitra"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginTop="14dp"
                     android:onClick="order_masuk"
                     android:orientation="horizontal">
@@ -257,6 +267,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/ic_navigate_next"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:tint="#9E9E9E"/>
                     <ImageView
                         android:id="@+id/alert_toko"
@@ -281,6 +292,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal"
                 android:visibility="gone"
                 android:background="@drawable/shape_edit_text"

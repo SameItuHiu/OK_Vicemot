@@ -59,7 +59,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     BottomSheetBehavior bottomSheetBehavior;
     Button order;
 
-    String userID, nama_toko, status, key,mToko_buka,nToko_buka,mToko_tutup,nToko_tutup,mJasa,nomor;
+    String userID, nama_toko, key,mToko_buka,nToko_buka,mToko_tutup,nToko_tutup,mJasa;
     private DatabaseReference ref, ref1;
 
     LinearLayout llBottomSheet;
@@ -99,22 +99,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
-                        .child("account").child(key).child("No_Handphone");
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String hp = dataSnapshot.getValue().toString();
-
-                        //chat
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                Intent intent = new Intent(Map.this, Chat.class);
+                startActivity(intent);
+                finish();
             }
         });
 

@@ -83,7 +83,7 @@ public class MenuUser extends AppCompatActivity {
     }
 
     public void chat(View view) {
-        Intent intent = new Intent(MenuUser.this, RoomChat.class);
+        Intent intent = new Intent(MenuUser.this, Chat.class);
         startActivity(intent);
         finish();
     }
@@ -91,14 +91,15 @@ public class MenuUser extends AppCompatActivity {
     public void akun(View view) {
         //Intent intent = new Intent(MenuUser.this, user_account.class);
         //startActivity(intent);
+        //finish();
 
     }
 
     public void buka_servis(View view) {
 
-//        Intent intent = new Intent(MenuUser.this, daftar_servis.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(MenuUser.this, OpenService .class);
+        startActivity(intent);
+        finish();
 
     }
 
@@ -112,11 +113,13 @@ public class MenuUser extends AppCompatActivity {
     public void order(View view) {
 //        Intent intent = new Intent(MenuUser.this, user_order.class);
 //        startActivity(intent);
+        //finish();
     }
 
     public void order_masuk(View view) {
         //Intent intent = new Intent(MenuUser.this, user_order_mitra.class);
         //startActivity(intent);
+        //finish();
     }
 
 }
