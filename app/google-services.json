@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "904336680061",
+    "firebase_url": "https://e-vicemote.firebaseio.com",
+    "project_id": "e-vicemote",
+    "storage_bucket": "e-vicemote.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904336680061:android:2e7dde67eb2e53745c3d14",
+        "android_client_info": {
+          "package_name": "com.example.e_vicemote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904336680061-0565lifp2v694ijgfrvov8d98o4urcui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.e_vicemote",
+            "certificate_hash": "ad33e95f0a7549f5b09828a81f38dac48bec70f1"
+          }
+        },
+        {
+          "client_id": "904336680061-43vbb0fkqo38nqc5v9r5s6csrubnn5o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa5y7z3HEN61NQbBeO4imUt9aEF6ZsaM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904336680061-43vbb0fkqo38nqc5v9r5s6csrubnn5o7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
