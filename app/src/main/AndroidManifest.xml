@@ -13,6 +13,9 @@
         <activity android:name=".RoomChat" />
         <activity android:name=".ProsesOrder" />
         <activity android:name=".Map" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         <activity android:name=".MenuUser" />
         <activity android:name=".Sign_up" />
         <activity android:name=".Login" />
