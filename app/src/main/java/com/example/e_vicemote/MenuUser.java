@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 public class MenuUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference ref;
 
     TextView txt_order;
     ImageView ic_order;
@@ -48,9 +47,11 @@ public class MenuUser extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        userID = user.getUid();
+        if (user != null) {
+            userID = user.getUid();
+        }
 
-        ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -76,15 +77,15 @@ public class MenuUser extends AppCompatActivity {
     }
 
     public void maps(View view) {
-        //Intent intent = new Intent(MenuUser.this, testmap.class);
-        //startActivity(intent);
-
+        Intent intent = new Intent(MenuUser.this, Map.class);
+        startActivity(intent);
+        finish();
     }
 
     public void chat(View view) {
-        //Intent intent = new Intent(MenuUser.this, chat.class);
-        //startActivity(intent);
-
+        Intent intent = new Intent(MenuUser.this, RoomChat.class);
+        startActivity(intent);
+        finish();
     }
 
     public void akun(View view) {
@@ -95,9 +96,10 @@ public class MenuUser extends AppCompatActivity {
 
     public void buka_servis(View view) {
 
-        Intent intent = new Intent(MenuUser.this, daftar_servis.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(MenuUser.this, daftar_servis.class);
+//        startActivity(intent);
+//        finish();
+
     }
 
     public void logout(View view) {
@@ -108,8 +110,8 @@ public class MenuUser extends AppCompatActivity {
     }
 
     public void order(View view) {
-        Intent intent = new Intent(MenuUser.this, user_order.class);
-        startActivity(intent);
+//        Intent intent = new Intent(MenuUser.this, user_order.class);
+//        startActivity(intent);
     }
 
     public void order_masuk(View view) {

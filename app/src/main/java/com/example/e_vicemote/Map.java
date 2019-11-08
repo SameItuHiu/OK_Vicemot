@@ -125,6 +125,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                     Intent intent = new Intent(Map.this, ProsesOrder.class);
                     intent.putExtra(ProsesOrder.key, key);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -383,7 +384,15 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     public void back(View view) {
         Intent intent = new Intent(Map.this, MenuUser.class);
         startActivity(intent);
+        finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MenuUser.class);
+        startActivity(intent);
+        finish();
+        super.onBackPressed();
+    }
 
 }

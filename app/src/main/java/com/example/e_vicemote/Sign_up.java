@@ -49,7 +49,6 @@ public class Sign_up extends AppCompatActivity {
 
     }
 
-
     public void back(View view) {
         Intent intent = new Intent(Sign_up.this, MainActivity.class);
         startActivity(intent);
@@ -97,7 +96,6 @@ public class Sign_up extends AppCompatActivity {
             // jika penulisan password tidak sama
         }else if (!passwordUser.equals(verif)){
             verifpass.setError("Password tidak sama");
-
 
         }else {
 
