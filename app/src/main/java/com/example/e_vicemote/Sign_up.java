@@ -132,6 +132,7 @@ public class Sign_up extends AppCompatActivity {
                                         "Register berhasil, Cek email untuk melakukan verifikasi",
                                         Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(Sign_up.this,MainActivity.class));
+                                finish();
                             }
                         }
                     });
@@ -142,5 +143,14 @@ public class Sign_up extends AppCompatActivity {
     public void signin(View view) {
         Intent intent = new Intent(Sign_up.this, Login.class);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        super.onBackPressed();
     }
 }
