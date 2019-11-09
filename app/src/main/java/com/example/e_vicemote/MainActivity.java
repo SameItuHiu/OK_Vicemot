@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.e_vicemote.Adapter.ViewPagerAdapter;
+import com.example.e_vicemote.Intro.FragmentIntro;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 public class MainActivity extends AppCompatActivity {

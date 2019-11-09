@@ -1,4 +1,4 @@
-package com.example.e_vicemote;
+package com.example.e_vicemote.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

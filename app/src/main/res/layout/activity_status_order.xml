@@ -5,20 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Chat.RoomChat">
+    tools:context=".Order.StatusOrder">
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#29B0FF"
-            app:titleTextColor="#fff"
+            android:background="@color/white"
             android:onClick="back"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:navigationIcon="@drawable/ic_prev"
-            app:title="Room Chat">
+            app:title="Status Order">
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ListView
+        android:id="@+id/datalist1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="14dp"
+        android:divider="#EEE"
+        android:dividerHeight="5dp">
+
+    </ListView>
 </LinearLayout>

@@ -22,10 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OpenService3"></activity>
-        <activity android:name=".SetLocation" />
-        <activity android:name=".OpenService2" />
-        <activity android:name=".OpenService" />
+        <activity android:name=".Order.DetailOrder"></activity>
+        <activity android:name=".Order.StatusOrder" />
+        <activity android:name=".OpenService.OpenService3" />
+        <activity android:name=".OpenService.SetLocation" />
+        <activity android:name=".OpenService.OpenService2" />
+        <activity android:name=".OpenService.OpenService" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,8 +35,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Chat" />
-        <activity android:name=".RoomChat" />
+        <activity android:name=".Chat.Chat" />
+        <activity android:name=".Chat.RoomChat" />
         <activity android:name=".ProsesOrder" />
         <activity android:name=".Map" />
 

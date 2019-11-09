@@ -1,4 +1,4 @@
-package com.example.e_vicemote;
+package com.example.e_vicemote.OpenService;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.e_vicemote.MenuUser;
+import com.example.e_vicemote.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.e_vicemote.Chat.Chat;
+import com.example.e_vicemote.OpenService.OpenService;
+import com.example.e_vicemote.Order.StatusOrder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -97,7 +100,7 @@ public class MenuUser extends AppCompatActivity {
 
     public void buka_servis(View view) {
 
-        Intent intent = new Intent(MenuUser.this, OpenService .class);
+        Intent intent = new Intent(MenuUser.this, OpenService.class);
         startActivity(intent);
         finish();
 
@@ -111,9 +114,9 @@ public class MenuUser extends AppCompatActivity {
     }
 
     public void order(View view) {
-//        Intent intent = new Intent(MenuUser.this, user_order.class);
-//        startActivity(intent);
-        //finish();
+        Intent intent = new Intent(MenuUser.this, StatusOrder.class);
+        startActivity(intent);
+        finish();
     }
 
     public void order_masuk(View view) {

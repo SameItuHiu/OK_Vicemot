@@ -1,4 +1,4 @@
-package com.example.e_vicemote;
+package com.example.e_vicemote.OpenService;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.e_vicemote.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,10 +28,13 @@ public class OpenService2 extends AppCompatActivity {
     public static final String mLat = "";
     public static final String mLong = "";
 
-    TextView Provinsi, Kota, Alamat,txt_peringatan,txt_salam;
+    TextView  Kota, Alamat,txt_peringatan,txt_salam;
     String userID,mContact,nama,lat;
 
     BottomSheetDialog dialog;
+
+    Spinner Provinsi;
+
 
     private DatabaseReference ref;
 
@@ -44,10 +50,16 @@ public class OpenService2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_service2);
-        Provinsi = findViewById(R.id.provinsi);
         Kota = findViewById(R.id.kota);
         Alamat = findViewById(R.id.alamat_lengkap);
         txt_salam = findViewById(R.id.salam);
+
+        Provinsi = findViewById(R.id.provinsi);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.Provinsi, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Provinsi.setAdapter(adapter);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -85,7 +97,7 @@ public class OpenService2 extends AppCompatActivity {
         String nama_toko = bundle.getString("nama_toko");
         String layanan = bundle.getString("layanan");
 
-        String mProvinsi = Provinsi.getText().toString();
+        String mProvinsi = String.valueOf(Provinsi.getSelectedItem());
         String mKota = Kota.getText().toString();
         String mAlamat = Alamat.getText().toString();
 

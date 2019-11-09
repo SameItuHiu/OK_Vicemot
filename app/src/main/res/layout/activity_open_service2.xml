@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".OpenService2">
+    tools:context=".OpenService.OpenService2">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -67,15 +67,11 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:orientation="vertical">
-                <com.google.android.material.textfield.TextInputLayout
+                <Spinner
+                    android:id="@+id/provinsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Provinsi">
-                    <EditText
-                        android:id="@+id/provinsi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="5dp"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
