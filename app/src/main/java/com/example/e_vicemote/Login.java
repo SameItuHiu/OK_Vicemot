@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
 
     public void login(View view) {
 
-        //menampung inputan user
+        //menampung inputan User
         final String emailUser = email.getText().toString().trim();
         final String passwordUser = password.getText().toString().trim();
 
@@ -119,7 +119,7 @@ public class Login extends AppCompatActivity {
                                         , Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
                             } else if (user != null && user.isEmailVerified()){
-                                //if(user.isEmailVerified()){
+                                //if(User.isEmailVerified()){
                                 dialog.dismiss();
                                 Intent intent = new Intent(Login.this, MenuUser.class);
                                 startActivity(intent);

@@ -18,9 +18,10 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/colorPrimary"
                 android:onClick="back"
                 app:navigationIcon="@drawable/ic_prev"
+                app:titleTextColor="@color/white"
                 app:title="Order">
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -66,13 +67,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginLeft="15dp"
-                    android:text="Informasi Barang"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -83,7 +77,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nama Barang">
+                        android:layout_marginTop="5dp"
+                        android:hint="Informasi Kendaraan">
                         <EditText
                             android:id="@+id/info_barang"
                             android:layout_width="match_parent"
@@ -94,11 +89,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="11sp"
-                        android:text="Nama barang (mohon disi dengan benar)"/>
+                        android:text="Nama kendaraan (mohon disi dengan benar)"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Deskripsi masalah yang dialami"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"

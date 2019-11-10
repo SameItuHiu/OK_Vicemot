@@ -1,18 +1,17 @@
-package com.example.e_vicemote.Order;
+package com.example.e_vicemote.OrderMasuk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.e_vicemote.Adapter.CustomAdapter;
+import com.example.e_vicemote.Adapter.CustomAdapter2;
 import com.example.e_vicemote.MenuUser;
-import com.example.e_vicemote.Model.Data;
+import com.example.e_vicemote.Model.Order;
 import com.example.e_vicemote.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,61 +25,71 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatusOrder extends AppCompatActivity {
+public class StatusOrderMasuk extends AppCompatActivity {
 
     public static final String ORDER_ID = " ";
 
     String nama_toko, info_barang, userID;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    TextView alasan;
 
     ListView listView;
-    List<Data> ListData;
-
+    List<Order> ListData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_status_order);
+        setContentView(R.layout.activity_status_order_masuk);
         //User auth
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("account").child(userID).child("order");
+        databaseReference = firebaseDatabase.getReference().child("toko").child(userID).child("order");
 
         listView = (ListView) findViewById(R.id.datalist1);
 
-        View view1 = getLayoutInflater().inflate(R.layout.popup_peringatan, null);
-        final BottomSheetDialog dialog = new BottomSheetDialog(this);
-        alasan = view1.findViewById(R.id.txt_peringatan);
-        dialog.setContentView(view1);
-
         //list to store artists
         ListData = new ArrayList<>();
+
+        View view1 = getLayoutInflater().inflate(R.layout.popup_peringatan, null);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        TextView Alasan = view1.findViewById(R.id.txt_peringatan);
+        Alasan.setText("Order ini sudah anda tolak");
+        dialog.setContentView(view1);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //getting the selected artist
-                Data id_order = ListData.get(position);
+                Order item = ListData.get(position);
 
-                String status_order = id_order.getStatus_order();
+                String status_order = item.getStatus_order();
 
                 if (status_order.equals("ditolak")){
-                    alasan.setText("Maaf atas ketidak nyamanannya, mungkin mitra kami sedang sibuk, atau sedang banyak order");
-                    dialog.show();
+                    //dialog.show();
                 }else{
-                    Intent intent = new Intent(getApplicationContext(), DetailOrder.class);
-                    intent.putExtra(ORDER_ID, id_order.getId_order());
+                    //creating an intent
+                    Intent intent = new Intent(getApplicationContext(), DetailOrderMasuk.class);
+
+                    //putting artist name and id to intent
+                    intent.putExtra(ORDER_ID, item.getId_order());
+
+                    //starting the activity with intent
                     startActivity(intent);
                     finish();
                 }
+
+
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         //attaching value event listener
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,22 +101,27 @@ public class StatusOrder extends AppCompatActivity {
                 for (DataSnapshot s : dataSnapshot.getChildren()){
 
                     //getting artist
-                    Data data = s.getValue(Data.class);
+                    Order data = s.getValue(Order.class);
                     //adding artist to the list
                     ListData.add(data);
                 }
 
                 //creating adapter
-                CustomAdapter dataAdapter = new CustomAdapter(StatusOrder.this, ListData);
+                CustomAdapter2 dataAdapter = new CustomAdapter2(StatusOrderMasuk.this, ListData);
                 //attaching adapter to the listview
                 listView.setAdapter(dataAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("Data", "Error: ", databaseError.toException());
+
             }
         });
+    }
+
+    public void back(View view) {
+        startActivity(new Intent(StatusOrderMasuk.this, MenuUser.class));
+        finish();
     }
     @Override
     public void onBackPressed() {
@@ -115,10 +129,5 @@ public class StatusOrder extends AppCompatActivity {
         startActivity(intent);
         finish();
         super.onBackPressed();
-    }
-
-    public void back(View view) {
-        startActivity(new Intent(StatusOrder.this, MenuUser.class));
-        finish();
     }
 }

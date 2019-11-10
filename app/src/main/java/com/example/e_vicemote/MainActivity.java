@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.e_vicemote.Adapter.ViewPagerAdapter;
-import com.example.e_vicemote.Intro.FragmentIntro;
+import com.example.e_vicemote.Intro.Intro;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 public class MainActivity extends AppCompatActivity {
     SpringDotsIndicator dotsIndicator;
     ViewPager mPager;
-    FragmentIntro intro1;
+    Intro intro1;
 
     @Override
     public void onBackPressed() {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        intro1 = new FragmentIntro();
+        intro1 = new Intro();
         viewPagerAdapter.addFragment(intro1);
         viewPager.setAdapter(viewPagerAdapter);
     }

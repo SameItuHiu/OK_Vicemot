@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="@drawable/shape"
+    tools:context=".user_order_mitra2"
+    android:elevation="5dp">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="6dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_edit_text"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#E4E3E3"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_marginBottom="24dp"
+        android:text="Rincian biaya"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:textAlignment="center"
+        android:text="Masukan harga sparepart yang harus diganti atau biaya yang lain"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama Sparepart">
+
+        <EditText
+            android:id="@+id/sparepart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="14dp"
+            android:hint="Harga">
+            <EditText
+                android:id="@+id/harga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:hint="Jumlah">
+            <EditText
+                android:id="@+id/jumlah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/tambah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Tambah"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="6dp"
+        android:layout_gravity="center_vertical"
+        android:background="#000"/>
+
+    <ListView
+        android:id="@+id/list_harga"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+</LinearLayout>

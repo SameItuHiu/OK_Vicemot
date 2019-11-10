@@ -71,7 +71,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        //user auth
+        //User auth
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
@@ -308,8 +308,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
+                // Show an explanation to the User *asynchronously* -- don't block
+                // this thread waiting for the User's response! After the User
                 // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
                         .setTitle("Location Permission Needed")
@@ -317,7 +317,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
+                                //Prompt the User once explanation has been shown
                                 ActivityCompat.requestPermissions(Map.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION );

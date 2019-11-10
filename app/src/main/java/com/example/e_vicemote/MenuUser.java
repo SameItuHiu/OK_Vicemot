@@ -12,9 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.e_vicemote.Account.MainAccount;
 import com.example.e_vicemote.Chat.Chat;
 import com.example.e_vicemote.OpenService.OpenService;
 import com.example.e_vicemote.Order.StatusOrder;
+import com.example.e_vicemote.OrderMasuk.StatusOrderMasuk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -62,7 +64,7 @@ public class MenuUser extends AppCompatActivity {
                 String text1 = dataSnapshot.child("account").child(userID).child("nama").getValue().toString();
                 String status = dataSnapshot.child("account").child(userID).child("status").getValue().toString();
 
-                if (status.equals("user") ){
+                if (status.equals("User") ){
                     open_servis.setVisibility(View.VISIBLE);
                 } else{
                     layout_mitra.setVisibility(View.VISIBLE);
@@ -92,9 +94,9 @@ public class MenuUser extends AppCompatActivity {
     }
 
     public void akun(View view) {
-        //Intent intent = new Intent(MenuUser.this, user_account.class);
-        //startActivity(intent);
-        //finish();
+        Intent intent = new Intent(MenuUser.this, MainAccount.class);
+        startActivity(intent);
+        finish();
 
     }
 
@@ -120,9 +122,9 @@ public class MenuUser extends AppCompatActivity {
     }
 
     public void order_masuk(View view) {
-        //Intent intent = new Intent(MenuUser.this, user_order_mitra.class);
-        //startActivity(intent);
-        //finish();
+        Intent intent = new Intent(MenuUser.this, StatusOrderMasuk.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -11,14 +11,13 @@ import android.view.ViewGroup;
 
 import com.example.e_vicemote.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentIntro extends Fragment {
+public class Intro1 extends Fragment {
 
 
-    public FragmentIntro() {
+    public Intro1() {
         // Required empty public constructor
     }
 
@@ -27,7 +26,7 @@ public class FragmentIntro extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intro, container, false);
+        return inflater.inflate(R.layout.fragment_intro1, container, false);
     }
 
 }

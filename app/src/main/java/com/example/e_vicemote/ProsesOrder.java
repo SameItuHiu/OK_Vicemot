@@ -53,7 +53,7 @@ public class ProsesOrder extends AppCompatActivity {
 
         keyID = getIntent().getStringExtra(key);
 
-        //user auth
+        //User auth
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();

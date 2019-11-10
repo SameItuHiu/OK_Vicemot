@@ -71,7 +71,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Toko">
+                    android:hint="Nama Bengkel">
                     <EditText
                         android:id="@+id/nama_toko"
                         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Pilih layanan toko : "/>
+                    android:text="Pilih layanan bengkel : "/>
                 <Spinner
                     android:id="@+id/Spinner"
                     android:layout_width="match_parent"

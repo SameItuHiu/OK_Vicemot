@@ -1,4 +1,4 @@
-package com.example.e_vicemote.OpenService;
+package com.example.e_vicemote.SettingAccount;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.e_vicemote.Account.EditAccount;
 import com.example.e_vicemote.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -33,10 +34,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class SetLocation extends AppCompatActivity implements OnMapReadyCallback {
+public class EditLokasiToko extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
@@ -46,24 +49,28 @@ public class SetLocation extends AppCompatActivity implements OnMapReadyCallback
     FusedLocationProviderClient mFusedLocationClient;
     LatLng position;
 
+    DatabaseReference ref;
+
     String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_location);
+        setContentView(R.layout.activity_edit_lokasi_toko);
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
+
+        ref = FirebaseDatabase.getInstance().getReference().child("toko").child(userID);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
     }
-
     public void back(View view) {
-        startActivity(new Intent(SetLocation.this, OpenService2.class));
+        startActivity(new Intent(EditLokasiToko.this, EditAccount.class));
         finish();
     }
     @Override
@@ -150,8 +157,8 @@ public class SetLocation extends AppCompatActivity implements OnMapReadyCallback
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an explanation to the User *asynchronously* -- don't block
-                // this thread waiting for the User's response! After the User
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
                         .setTitle("Location Permission Needed")
@@ -159,8 +166,8 @@ public class SetLocation extends AppCompatActivity implements OnMapReadyCallback
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the User once explanation has been shown
-                                ActivityCompat.requestPermissions(SetLocation.this,
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(EditLokasiToko.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION );
                             }
@@ -210,37 +217,22 @@ public class SetLocation extends AppCompatActivity implements OnMapReadyCallback
             // permissions this app might request
         }
     }
+
+    public void set(View view) {
+        String mLat = String.valueOf(position.latitude);
+        String mLong = String.valueOf(position.longitude);
+        ref.child("alamat").child("kordinat").child("latitude").setValue(mLat);
+        ref.child("alamat").child("kordinat").child("longitude").setValue(mLong);
+        Intent intent = new Intent(EditLokasiToko.this, EditAccount.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, OpenService2.class);
+        Intent intent = new Intent(this, EditAccount.class);
         startActivity(intent);
         finish();
         super.onBackPressed();
-    }
-    public void set(View view) {
-
-        Bundle bundle = getIntent().getExtras();
-        String nama_toko = bundle.getString("nama_toko");
-        String layanan = bundle.getString("layanan");
-        String provinsi = bundle.getString("provinsi");
-        String kota = bundle.getString("kota");
-        String alamat = bundle.getString("alamat");
-
-        String mLat = String.valueOf(position.latitude);
-        String mLong = String.valueOf(position.longitude);
-
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("nama_toko", nama_toko);
-        bundle1.putString("layanan", layanan);
-        bundle1.putString("provinsi", provinsi);
-        bundle1.putString("kota", kota);
-        bundle1.putString("alamat", alamat);
-        bundle1.putString("Latitut", mLat);
-        bundle1.putString("Longitut", mLong);
-        Intent intent = new Intent(SetLocation.this, OpenService3.class);
-        intent.putExtras(bundle1);
-        startActivity(intent);
-        finish();
-
     }
 }

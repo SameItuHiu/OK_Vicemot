@@ -105,7 +105,7 @@ public class Sign_up extends AppCompatActivity {
             final AlertDialog dialog = mBuiler.create();
             dialog.show();
 
-            //create user dengan firebase auth
+            //create User dengan firebase auth
             mAuth.createUserWithEmailAndPassword(emailUser,passwordUser)
                     .addOnCompleteListener(Sign_up.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -125,7 +125,7 @@ public class Sign_up extends AppCompatActivity {
                                 ref.child(userId).child("email").setValue(emailUser);
                                 ref.child(userId).child("gender").setValue(gender);
                                 ref.child(userId).child("No_Handphone").setValue(mPhone);
-                                ref.child(userId).child("status").setValue("user");
+                                ref.child(userId).child("status").setValue("User");
                                 dialog.dismiss();
 
                                 Toast.makeText(Sign_up.this,
