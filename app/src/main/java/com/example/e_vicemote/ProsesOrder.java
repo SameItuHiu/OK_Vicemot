@@ -21,10 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ProsesOrder extends AppCompatActivity {
 
-    public static final String key = null;
 
     String userID, nama_toko, layanan, keyID,id,nama_pelanggan;
     private DatabaseReference ref;
@@ -37,6 +37,10 @@ public class ProsesOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proses_order);
+        Bundle bundle = getIntent().getExtras();
+        keyID = bundle.getString("key");
+        final String lat = bundle.getString("lat");
+        final String longt = bundle.getString("longt");
 
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -51,7 +55,7 @@ public class ProsesOrder extends AppCompatActivity {
         mToko = findViewById(R.id.nToko);
         mLayanan = findViewById(R.id.nDesk);
 
-        keyID = getIntent().getStringExtra(key);
+        //keyID = getIntent().getStringExtra(key);
 
         //User auth
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -137,6 +141,9 @@ public class ProsesOrder extends AppCompatActivity {
                 ref.child("toko").child(keyID).child("order").child(id).child("hour").setValue(mHour);
                 ref.child("toko").child(keyID).child("order").child(id).child("minute").setValue(mMinute);
                 ref.child("toko").child(keyID).child("alert").setValue(true);
+
+                ref.child("toko").child(keyID).child("order").child(id).child("user location").child("lat").setValue(lat);
+                ref.child("toko").child(keyID).child("order").child(id).child("user location").child("longt").setValue(longt);
 
                 dialog.show();
             }

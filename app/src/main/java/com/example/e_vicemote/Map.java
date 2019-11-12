@@ -60,6 +60,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     BottomSheetBehavior bottomSheetBehavior;
     Button order;
 
+    LatLng latLng;
+
     String userID, nama_toko, key,mToko_buka,nToko_buka,mToko_tutup,nToko_tutup,mJasa;
     private DatabaseReference ref, ref1;
 
@@ -110,8 +112,14 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 if (mStatus.getText().toString().equals("BUKA")){
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("key", key);
+                    bundle1.putString("lat", String.valueOf(latLng.latitude));
+                    bundle1.putString("longt", String.valueOf(latLng.longitude));
+
                     Intent intent = new Intent(Map.this, ProsesOrder.class);
-                    intent.putExtra(ProsesOrder.key, key);
+                    intent.putExtras(bundle1);
+                    //intent.putExtra(ProsesOrder.key, key);
                     startActivity(intent);
                     finish();
                 }
@@ -287,7 +295,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                 }
 
                 //Place current location marker
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title("Current Position");

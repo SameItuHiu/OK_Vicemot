@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.e_vicemote.Adapter.CustomAdapter3;
 import com.example.e_vicemote.Model.Rincian;
 import com.example.e_vicemote.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,9 +37,11 @@ public class DetailOrderMasuk extends AppCompatActivity {
     DatabaseReference databaseReference;
     String id_order,userID,id_pelanggan,catatan,mcatatan,key;
 
-    LinearLayout Layout_button,layout_isi,layout_catatan,layout_feedback;
+    LinearLayout Layout_button,layout_direct,layout_isi,layout_catatan,layout_feedback;
 
     BottomSheetDialog dialog1, dialog ,dialog2;
+
+    LatLng latLang;
 
     int total = 0,barang;
     TextView total_harga;
@@ -65,6 +69,7 @@ public class DetailOrderMasuk extends AppCompatActivity {
         final TextView like_dislike = findViewById(R.id.like_dislike);
         final TextView txt_komentar = findViewById(R.id.txt_komentar);
 
+        layout_direct = findViewById(R.id.layout_direct);
         Layout_button = findViewById(R.id.layout_button);
         layout_isi = findViewById(R.id.layout_isi);
         layout_catatan = findViewById(R.id.layout_catatan);
@@ -84,7 +89,11 @@ public class DetailOrderMasuk extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot s : dataSnapshot.getChildren()){
                             Integer nDay,nMonth,nYear,nHour,nMinute;
-                            String mstatus, mbarang,mkeluhan,mpelanggan,mlike_dislike,mfeedback;
+                            String mstatus, mbarang,mkeluhan,mpelanggan,mlike_dislike,mfeedback,lat,longt;
+
+                            lat = s.child("user location").child("lat").getValue().toString();
+                            longt = s.child("user location").child("longt").getValue().toString();
+                            latLang = new LatLng(Double.valueOf(lat),Double.valueOf(longt));
 
                             mstatus = s.child("status_order").getValue().toString();
                             mpelanggan = s.child("nama_pelanggan").getValue().toString();
@@ -105,22 +114,27 @@ public class DetailOrderMasuk extends AppCompatActivity {
                             keluhan.setText(mkeluhan);
                             nama_pelanggan.setText(mpelanggan);
 
-                            if (mstatus.equals("On Proses")){
+                            if (mstatus.equals("Preparing & Menuju Lokasi")){
                                 Layout_button.setVisibility(View.GONE);
+                                layout_direct.setVisibility(View.VISIBLE);
+
+                            }else if (mstatus.equals("Selesai Servis")){
+                                Layout_button.setVisibility(View.GONE);
+                                layout_direct.setVisibility(View.GONE);
                                 layout_isi.setVisibility(View.VISIBLE);
 
-                            } else if (mstatus.equals("diterima")){
+                            }else if (mstatus.equals("Rincian")) {
                                 Layout_button.setVisibility(View.GONE);
+                                layout_direct.setVisibility(View.GONE);
                                 layout_isi.setVisibility(View.GONE);
                                 layout_catatan.setVisibility(View.VISIBLE);
                                 mcatatan = s.child("catatan_order").getValue().toString();
                                 catatan1.setText(mcatatan);
                                 list_harga_barang();
-
-                            }
-                            else if (mstatus.equals("selesai")){
+                            } else if (mstatus.equals("Order Selesai")){
                                 Layout_button.setVisibility(View.GONE);
                                 layout_isi.setVisibility(View.GONE);
+                                layout_direct.setVisibility(View.GONE);
                                 layout_catatan.setVisibility(View.VISIBLE);
                                 layout_feedback.setVisibility(View.VISIBLE);
                                 mcatatan = s.child("catatan_order").getValue().toString();
@@ -180,6 +194,7 @@ public class DetailOrderMasuk extends AppCompatActivity {
                 if (catatan.isEmpty()){
                     txt_catatan.setError("Mohon di isi");
                 }else{
+                    barang++;
                     dialog1.dismiss();
                 }
 
@@ -213,7 +228,6 @@ public class DetailOrderMasuk extends AppCompatActivity {
                 }else{
                     //getting a unique id using push().getKey() method
                     //it will create a unique id and we will use it as the Primary Key for our Artist
-
                     String id = databaseReference.child(key).child("rincian_harga").push().getKey();
 
                     //creating an Artist Object
@@ -223,6 +237,7 @@ public class DetailOrderMasuk extends AppCompatActivity {
                     databaseReference.child(key).child("rincian_harga").child(id).setValue(rincian);
                     FirebaseDatabase.getInstance().getReference().child("account")
                             .child(id_pelanggan).child("order").child(key).child("rincian_harga").child(id).setValue(rincian);
+
                     //setting edittext to blank again
                     sparepart.setText("");
                     harga.setText("");
@@ -262,34 +277,35 @@ public class DetailOrderMasuk extends AppCompatActivity {
 
     public void terima_order(View view) {
         Layout_button.setVisibility(View.GONE);
-        FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("status_order").setValue("On Proses");
-        FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("On Proses");
+        layout_direct.setVisibility(View.VISIBLE);
+        FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("status_order").setValue("Diterima");
+        FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("diterima");
         finish();
         startActivity(getIntent());
     }
 
     public void kirim(View view) {
 
-        //Mengisi catatan kerusakan
         View view1 = getLayoutInflater().inflate(R.layout.popup_peringatan, null);
-        txt_catatan = view1.findViewById(R.id.txt_peringatan);
-        dialog1 = new BottomSheetDialog(this);
-        dialog1.setContentView(view1);
+        TextView txt_catatan = view1.findViewById(R.id.txt_peringatan);
+        BottomSheetDialog dialog3 = new BottomSheetDialog(this);
+        dialog3.setContentView(view1);
 
-        if (catatan.isEmpty()){
+        if (barang==0){
             txt_catatan.setText("Mohon diisi catatan untuk user");
-            dialog1.show();
-        }else if (barang<1){
+            dialog3.show();
+        }else if (barang==1){
             txt_catatan.setText("Mohon diisi rincian biaya");
-            dialog1.show();
+            dialog3.show();
         }else{
             FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("catatan_order").setValue(catatan);
             FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("catatan_mitra").setValue(catatan);
 
-            FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("status_order").setValue("diterima");
-            FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("diterima");
+            FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("status_order").setValue("Rincian");
+            FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("Rincian");
             finish();
             startActivity(getIntent());
+            barang=0;
         }
     }
 
@@ -338,5 +354,33 @@ public class DetailOrderMasuk extends AppCompatActivity {
         startActivity(intent);
         finish();
         super.onBackPressed();
+    }
+
+    public void Diskusi(View view) {
+        Intent intent = new Intent(this, StatusOrderMasuk.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void Direct(View view) {
+
+        FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("status_order").setValue("Preparing & Menuju Lokasi");
+        FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("Preparing & Menuju Lokasi");
+
+        Double mLat = latLang.latitude;
+        Double mLong = latLang.longitude;
+        Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?daddr="+mLat+","+mLong);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
+    public void selesai_servis(View view) {
+        layout_direct.setVisibility(View.GONE);
+        Layout_button.setVisibility(View.GONE);
+        FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("status_order").setValue("Selesai Servis");
+        FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("Selesai Servis");
+        finish();
+        startActivity(getIntent());
     }
 }

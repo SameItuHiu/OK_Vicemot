@@ -156,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:padding="14dp"
                 android:layout_marginTop="6dp"
                 android:orientation="vertical">

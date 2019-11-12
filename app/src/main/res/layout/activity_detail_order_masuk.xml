@@ -157,6 +157,46 @@
                         android:textColor="@color/white"
                         android:background="@drawable/shape_edit_text"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_direct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <Button
+                        android:onClick="Diskusi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_edit_text"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Diskusi"
+                        android:textAllCaps="false"
+                        android:backgroundTint="#EEEDED"/>
+                    <Button
+                        android:onClick="Direct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Menuju Lokasi Pelanggan"
+                        android:layout_gravity="center_horizontal"
+                        android:textAllCaps="false"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/shape_edit_text"/>
+
+                    <Button
+                        android:onClick="selesai_servis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Selesai Diperbaiki"
+                        android:layout_gravity="center_horizontal"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/shape_edit_text"/>
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_isi"

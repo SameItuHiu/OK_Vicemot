@@ -105,7 +105,7 @@ public class DetailOrder extends AppCompatActivity {
                             keluhan.setText(mkeluhan);
                             nama_toko.setText(mnama_toko);
 
-                            if (mstatus.equals("diterima")){
+                            if (mstatus.equals("Rincian")){
                                 mLayout.setVisibility(View.VISIBLE);
                                 mcatatan_mitra = s.child("catatan_mitra").getValue().toString();
                                 catatan_mitra.setText(mcatatan_mitra);
@@ -115,10 +115,14 @@ public class DetailOrder extends AppCompatActivity {
                                 startActivity(new Intent(DetailOrder.this, StatusOrder.class));
                                 finish();
 
-                            }else if(mstatus.equals("selesai")){
+                            }else if(mstatus.equals("Selesai Servis")){
                                 alamat.setVisibility(View.GONE);
                                 finish.setVisibility(View.GONE);
+                                
+                            }else if (mstatus.equals("Order Selesai")){
                                 mLayout.setVisibility(View.VISIBLE);
+                                finish.setVisibility(View.GONE);
+
                                 layout_feedback.setVisibility(View.VISIBLE);
                                 list_harga_barang();
 
@@ -130,6 +134,7 @@ public class DetailOrder extends AppCompatActivity {
 
                                 mcatatan_mitra = s.child("catatan_mitra").getValue().toString();
                                 catatan_mitra.setText(mcatatan_mitra);
+
                             }
                         }
                     }
@@ -158,6 +163,10 @@ public class DetailOrder extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public void setFeedback(){
         //Jika orderan selesai (muncul feedback)
         View view = getLayoutInflater().inflate(R.layout.popup_feedback, null);
         final EditText txt_feedback = view.findViewById(R.id.txt_feedback);
@@ -165,6 +174,10 @@ public class DetailOrder extends AppCompatActivity {
         final ImageView img_dislike = view.findViewById(R.id.img_dislike);
         final ImageView img_like_checked = view.findViewById(R.id.img_like_checked);
         final ImageView img_dislike_checked = view.findViewById(R.id.img_dislike_checked);
+
+        dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        dialog.show();
 
         img_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,9 +201,6 @@ public class DetailOrder extends AppCompatActivity {
 
         Button btn_feedback = view.findViewById(R.id.btn_feedback);
 
-        dialog = new BottomSheetDialog(this);
-        dialog.setContentView(view);
-
         btn_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,8 +212,8 @@ public class DetailOrder extends AppCompatActivity {
                     checked = "dislike";
                 }
 
-                FirebaseDatabase.getInstance().getReference().child("toko").child(id_mitra).child("order").child(id_order).child("status_order").setValue("selesai");
-                FirebaseDatabase.getInstance().getReference().child("account").child(userID).child("order").child(id_order).child("status_order").setValue("selesai");
+                FirebaseDatabase.getInstance().getReference().child("toko").child(id_mitra).child("order").child(id_order).child("status_order").setValue("Order Selesai");
+                FirebaseDatabase.getInstance().getReference().child("account").child(userID).child("order").child(id_order).child("status_order").setValue("Order Selesai");
 
                 FirebaseDatabase.getInstance().getReference().child("toko").child(id_mitra).child("order").child(id_order).child("feedback").child("status").setValue(checked);
                 FirebaseDatabase.getInstance().getReference().child("account").child(userID).child("order").child(id_order).child("feedback").child("status").setValue(checked);
@@ -229,7 +239,9 @@ public class DetailOrder extends AppCompatActivity {
     }
 
     public void selesai(View view) {
-        dialog.show();
+
+        setFeedback();
+        //dialog.show();
     }
 
     public void list_harga_barang(){
