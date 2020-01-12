@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_vicemote.Adapter.CustomAdapter3;
+import com.example.e_vicemote.Chat.RoomChat;
 import com.example.e_vicemote.Model.Rincian;
+import com.example.e_vicemote.Model.UserDetail;
 import com.example.e_vicemote.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -35,7 +37,7 @@ public class DetailOrderMasuk extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    String id_order,userID,id_pelanggan,catatan,mcatatan,key;
+    String id_order,userID,id_pelanggan,catatan,mcatatan,key,nama_pelanggan1;
 
     LinearLayout Layout_button,layout_direct,layout_isi,layout_catatan,layout_feedback;
 
@@ -49,6 +51,7 @@ public class DetailOrderMasuk extends AppCompatActivity {
 
     ListView list_harga;
     List<Rincian> listdata;
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +117,11 @@ public class DetailOrderMasuk extends AppCompatActivity {
                             keluhan.setText(mkeluhan);
                             nama_pelanggan.setText(mpelanggan);
 
-                            if (mstatus.equals("Preparing & Menuju Lokasi")){
+
+                            if (mstatus.equals("Diterima")){
+                                Layout_button.setVisibility(View.GONE);
+                                layout_direct.setVisibility(View.VISIBLE);
+                            }else if (mstatus.equals("Preparing & Menuju Lokasi")){
                                 Layout_button.setVisibility(View.GONE);
                                 layout_direct.setVisibility(View.VISIBLE);
 
@@ -146,6 +153,19 @@ public class DetailOrderMasuk extends AppCompatActivity {
                                 like_dislike.setText(mlike_dislike);
                                 txt_komentar.setText(mfeedback);
                                 catatan1.setText(mcatatan);
+
+                                ref = FirebaseDatabase.getInstance().getReference().child("account").child(key);
+                                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        nama_pelanggan1 = dataSnapshot.child("nama").getValue(String.class);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         }
                     }
@@ -276,10 +296,9 @@ public class DetailOrderMasuk extends AppCompatActivity {
     }
 
     public void terima_order(View view) {
-        Layout_button.setVisibility(View.GONE);
-        layout_direct.setVisibility(View.VISIBLE);
+
         FirebaseDatabase.getInstance().getReference().child("toko").child(userID).child("order").child(id_order).child("status_order").setValue("Diterima");
-        FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("diterima");
+        FirebaseDatabase.getInstance().getReference().child("account").child(id_pelanggan).child("order").child(id_order).child("status_order").setValue("Diterima");
         finish();
         startActivity(getIntent());
     }
@@ -357,7 +376,10 @@ public class DetailOrderMasuk extends AppCompatActivity {
     }
 
     public void Diskusi(View view) {
-        Intent intent = new Intent(this, StatusOrderMasuk.class);
+        UserDetail.setUsername(userID);
+        UserDetail.setChatWith(key);
+        UserDetail.setNamechatWith(nama_pelanggan1);
+        Intent intent = new Intent(this, RoomChat.class);
         startActivity(intent);
         finish();
     }

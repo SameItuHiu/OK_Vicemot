@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 public class ProsesOrder extends AppCompatActivity {
 
@@ -152,14 +151,14 @@ public class ProsesOrder extends AppCompatActivity {
     }
 
     public void back(View view) {
-        Intent intent = new Intent(this, Map.class);
+        Intent intent = new Intent(this, nMap.class);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, Map.class);
+        Intent intent = new Intent(this, nMap.class);
         startActivity(intent);
         finish();
         super.onBackPressed();

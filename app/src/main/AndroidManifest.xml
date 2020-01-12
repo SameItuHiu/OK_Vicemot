@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SettingAccount.EditJadwalBuka"></activity>
+        <activity android:name=".OpenService.OpenService4"></activity>
+        <activity android:name=".SettingAccount.EditJadwalBuka" />
         <activity android:name=".SettingAccount.EditLokasiToko" />
         <activity android:name=".SettingAccount.EditAlamatToko" />
         <activity android:name=".SettingAccount.EditNamaToko" />
@@ -49,7 +50,7 @@
         <activity android:name=".Chat.Chat" />
         <activity android:name=".Chat.RoomChat" />
         <activity android:name=".ProsesOrder" />
-        <activity android:name=".Map" />
+        <activity android:name=".nMap" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

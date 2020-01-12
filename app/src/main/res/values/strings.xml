@@ -6,8 +6,9 @@
 
     <string-array name="Layanan">
 
-        <item>Servis Motor</item>
-        <item>Servis Mobil</item>
+        <item>Servis Laptop/PC</item>
+        <item>Servis Handphone Android</item>
+        <item>Servis Handphone iOS</item>
 
     </string-array>
 

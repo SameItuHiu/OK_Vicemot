@@ -59,7 +59,7 @@ public class DetailOrder extends AppCompatActivity {
         final TextView keluhan = findViewById(R.id.keluhan);
         final TextView nama_toko = findViewById(R.id.nama_toko);
         final TextView catatan_mitra = findViewById(R.id.catatan_mitra);
-        final TextView alamat_toko = findViewById(R.id.alamat_toko); //
+        final TextView alamat_toko = findViewById(R.id.alamat_toko);
 
         final ListView listharga = findViewById(R.id.listharga);
         final Button alamat = findViewById(R.id.alamat);
@@ -118,7 +118,7 @@ public class DetailOrder extends AppCompatActivity {
                             }else if(mstatus.equals("Selesai Servis")){
                                 alamat.setVisibility(View.GONE);
                                 finish.setVisibility(View.GONE);
-                                
+
                             }else if (mstatus.equals("Order Selesai")){
                                 mLayout.setVisibility(View.VISIBLE);
                                 finish.setVisibility(View.GONE);

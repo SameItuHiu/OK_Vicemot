@@ -66,7 +66,10 @@ public class MenuUser extends AppCompatActivity {
 
                 if (status.equals("User") ){
                     open_servis.setVisibility(View.VISIBLE);
-                } else{
+                } else if (status.equals("Pending")){
+                    open_servis.setVisibility(View.GONE);
+                    layout_mitra.setVisibility(View.GONE);
+                } else {
                     layout_mitra.setVisibility(View.VISIBLE);
                 }
 
@@ -82,7 +85,7 @@ public class MenuUser extends AppCompatActivity {
     }
 
     public void maps(View view) {
-        Intent intent = new Intent(MenuUser.this, Map.class);
+        Intent intent = new Intent(MenuUser.this, nMap.class);
         startActivity(intent);
         finish();
     }

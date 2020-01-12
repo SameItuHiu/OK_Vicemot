@@ -23,7 +23,7 @@ public class OpenService3 extends AppCompatActivity {
 
     private int mHour, mMinute,bJam = 0,bMenit= 0,tJam= 0,tMenit= 0;
     private TextView buka,tutup,txt_peringatan;
-    private DatabaseReference ref;
+    //private DatabaseReference ref;
     String userID;
 
     @Override
@@ -38,7 +38,6 @@ public class OpenService3 extends AppCompatActivity {
         buka = findViewById(R.id.buka);
         tutup = findViewById(R.id.tutup);
 
-        ref = FirebaseDatabase.getInstance().getReference().child("toko").child(userID);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class OpenService3 extends AppCompatActivity {
         finish();
     }
 
-    public void Finish(View view) {
+    public void Selanjutnya(View view) {
         Bundle bundle = getIntent().getExtras();
         String nama_toko = bundle.getString("nama_toko");
         String layanan = bundle.getString("layanan");
@@ -76,20 +75,22 @@ public class OpenService3 extends AppCompatActivity {
             txt_peringatan.setText("Anda belum set waktu toko tutup");
             dialog.show();
         }else{
-            //ref = FirebaseDatabase.getInstance().getReference().child("toko").child(userID);
-            ref.child("nama_toko").setValue(nama_toko);
-            ref.child("layanan").setValue(layanan);
-            ref.child("alamat").child("provinsi").setValue(provinsi);
-            ref.child("alamat").child("kota").setValue(kota);
-            ref.child("alamat").child("alamat").setValue(alamat);
-            ref.child("alamat").child("kordinat").child("latitude").setValue(Latitut);
-            ref.child("alamat").child("kordinat").child("longitude").setValue(Longitut);
-            ref.child("jadwal").child("buka").child("jam").setValue(bJam);
-            ref.child("jadwal").child("buka").child("menit").setValue(bMenit);
-            ref.child("jadwal").child("tutup").child("jam").setValue(tJam);
-            ref.child("jadwal").child("tutup").child("menit").setValue(tMenit);
-            FirebaseDatabase.getInstance().getReference().child("account").child(userID).child("status").setValue("mitra");
-            startActivity(new Intent(OpenService3.this, MenuUser.class));
+
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("nama_toko", nama_toko);
+            bundle1.putString("layanan", layanan);
+            bundle1.putString("provinsi", provinsi);
+            bundle1.putString("kota", kota);
+            bundle1.putString("alamat", alamat);
+            bundle1.putString("Latitut", Latitut);
+            bundle1.putString("Longitut", Longitut);
+            bundle1.putString("bjam", String.valueOf(bJam));
+            bundle1.putString("bmenit", String.valueOf(bMenit));
+            bundle1.putString("tjam", String.valueOf(tJam));
+            bundle1.putString("tmenit", String.valueOf(tMenit));
+            Intent intent = new Intent(OpenService3.this, OpenService4.class);
+            intent.putExtras(bundle1);
+            startActivity(intent);
             finish();
         }
 

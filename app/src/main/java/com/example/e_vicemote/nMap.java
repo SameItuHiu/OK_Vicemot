@@ -22,7 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.e_vicemote.Chat.Chat;
+import com.example.e_vicemote.Chat.RoomChat;
+import com.example.e_vicemote.Model.UserDetail;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -48,7 +49,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.List;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback {
+public class nMap extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
@@ -62,7 +63,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     LatLng latLng;
 
-    String userID, nama_toko, key,mToko_buka,nToko_buka,mToko_tutup,nToko_tutup,mJasa;
+    String userID, nama_toko, key,mToko_buka,nToko_buka,mToko_tutup,nToko_tutup,mJasa,nama_montir;
     private DatabaseReference ref, ref1;
 
     LinearLayout llBottomSheet;
@@ -99,10 +100,14 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         toko_tutup = llBottomSheet.findViewById(R.id.toko_tutup);
         jasa = llBottomSheet.findViewById(R.id.jasa);
 
+
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Map.this, Chat.class);
+                UserDetail.setUsername(userID);
+                UserDetail.setChatWith(key);
+                UserDetail.setNamechatWith(nama_montir);
+                Intent intent = new Intent(nMap.this, RoomChat.class);
                 startActivity(intent);
                 finish();
             }
@@ -112,13 +117,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 if (mStatus.getText().toString().equals("BUKA")){
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("key", key);
-                    bundle1.putString("lat", String.valueOf(latLng.latitude));
-                    bundle1.putString("longt", String.valueOf(latLng.longitude));
-
-                    Intent intent = new Intent(Map.this, ProsesOrder.class);
-                    intent.putExtras(bundle1);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key", key);
+                    bundle.putString("lat", String.valueOf(latLng.latitude));
+                    bundle.putString("longt", String.valueOf(latLng.longitude));
+                    Intent intent = new Intent(nMap.this, ProsesOrder.class);
+                    intent.putExtras(bundle);
                     //intent.putExtra(ProsesOrder.key, key);
                     startActivity(intent);
                     finish();
@@ -206,6 +210,20 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
                                     key = snap.getKey();
+
+                                    ref = FirebaseDatabase.getInstance().getReference().child("account").child(key);
+                                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            nama_montir = dataSnapshot.child("nama").getValue(String.class);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
                                     if (!key.equals(userID)){
 
                                         nama_toko = snap.child("nama_toko").getValue(String.class);
@@ -270,6 +288,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
                             }
                         });
+
                 return false;
             }
         });
@@ -296,10 +315,10 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
                 //Place current location marker
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title("Current Position");
-                mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+//                MarkerOptions markerOptions = new MarkerOptions();
+//                markerOptions.position(latLng);
+//                markerOptions.title("Current Position");
+//                mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
                 //move map camera
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
@@ -326,7 +345,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the User once explanation has been shown
-                                ActivityCompat.requestPermissions(Map.this,
+                                ActivityCompat.requestPermissions(nMap.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION );
                             }
@@ -378,7 +397,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void back(View view) {
-        Intent intent = new Intent(Map.this, MenuUser.class);
+        Intent intent = new Intent(nMap.this, MenuUser.class);
         startActivity(intent);
         finish();
     }
