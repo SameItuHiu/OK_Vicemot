@@ -33,7 +33,7 @@ public class OpenService2 extends AppCompatActivity {
 
     BottomSheetDialog dialog;
 
-    Spinner Provinsi;
+    Spinner Provinsi,Kota1;
 
 
     private DatabaseReference ref;
@@ -60,6 +60,13 @@ public class OpenService2 extends AppCompatActivity {
                 R.array.Provinsi, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Provinsi.setAdapter(adapter);
+
+        Kota1 = findViewById(R.id.kota);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.Provinsi, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Kota1.setAdapter(adapter1);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -98,7 +105,7 @@ public class OpenService2 extends AppCompatActivity {
         String layanan = bundle.getString("layanan");
 
         String mProvinsi = String.valueOf(Provinsi.getSelectedItem());
-        String mKota = Kota.getText().toString();
+        String mKota = String.valueOf(Kota1.getSelectedItem());
         String mAlamat = Alamat.getText().toString();
 
         if (mProvinsi.isEmpty()){
